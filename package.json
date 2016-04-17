@@ -1,6 +1,6 @@
 {
   "name": "synthetic-dom",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Synthetic HTML DOM for use with parsing within React-RTE",
   "main": "lib/SyntheticDOM.js",
   "scripts": {
