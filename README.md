@@ -4,4 +4,4 @@ This package allows us to create an in-memory document object model similar to t
 
 ## License
 
-This software is [BSD Licensed](/LICENSE).
+This software is [ISC Licensed](/LICENSE).
