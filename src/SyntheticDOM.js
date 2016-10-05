@@ -52,7 +52,9 @@ export class ElementNode extends Node {
   appendChild(node: Node) {
     if (node.nodeType === NODE_TYPE_FRAGMENT) {
       if (node.childNodes != null) {
-        this.childNodes.push(...node.childNodes);
+        // $FlowIssue - Flow doesn't realize that node is a FragmentNode.
+        let childNodes: Array<Node> = node.childNodes;
+        this.childNodes.push(...childNodes);
       }
     } else {
       this.childNodes.push(node);
@@ -92,7 +94,9 @@ export class FragmentNode extends Node {
   appendChild(node: Node) {
     if (node.nodeType === NODE_TYPE_FRAGMENT) {
       if (node.childNodes != null) {
-        this.childNodes.push(...node.childNodes);
+        // $FlowIssue - Flow doesn't realize that node is a FragmentNode.
+        let childNodes: Array<Node> = node.childNodes;
+        this.childNodes.push(...childNodes);
       }
     } else {
       this.childNodes.push(node);
