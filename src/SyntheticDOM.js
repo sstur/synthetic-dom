@@ -1,7 +1,10 @@
 /* @flow */
 
-type Attr = [string, string];
+type Attr = {name: string; value: string};
+type AttrList = Array<Attr>;
 type MapList = {[key: string]: boolean};
+
+const EMPTY_ATTR_LIST: AttrList = [];
 
 export const NODE_TYPE_ELEMENT = 1;
 export const NODE_TYPE_TEXT = 3;
@@ -33,15 +36,20 @@ export class TextNode extends Node {
 
 export class ElementNode extends Node {
   childNodes: Array<Node>;
-  attributes: Map<string, string>;
+  attributes: AttrList;
+  attrMap: Map<string, Attr>;
   isSelfClosing: boolean;
 
-  constructor(name: string, attributes: ?Array<Attr>, childNodes: ?Array<Node>) {
+  constructor(name: string, attributes: ?AttrList, childNodes: ?Array<Node>) {
     super(...arguments);
+    if (attributes == null) {
+      attributes = EMPTY_ATTR_LIST;
+    }
     let isSelfClosing = (SELF_CLOSING[name] === true);
     this.nodeType = NODE_TYPE_ELEMENT;
     this.nodeName = name;
-    this.attributes = (attributes == null) ? new Map() : new Map(attributes);
+    this.attributes = attributes;
+    this.attrMap = new Map(attributes.map((attr) => [attr.name, attr]));
     this.childNodes = [];
     this.isSelfClosing = isSelfClosing;
     if (!isSelfClosing && childNodes) {
@@ -62,12 +70,15 @@ export class ElementNode extends Node {
   }
 
   getAttribute(name: string): ?string {
-    return this.attributes.get(name);
+    let attr = this.attrMap.get(name);
+    if (attr) {
+      return attr.value;
+    }
   }
 
   toString(isXHTML: ?boolean): string {
     let attributes = [];
-    for (let [name, value] of this.attributes.entries()) {
+    for (let {name, value} of this.attributes) {
       attributes.push(name + (value ? '="' + escapeAttr(value) + '"' : ''));
     }
     let attrString = attributes.length ? ' ' + attributes.join(' ') : '';

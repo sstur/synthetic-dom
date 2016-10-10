@@ -22,23 +22,23 @@ describe('Elements', () => {
     let element = new ElementNode('div', [], []);
     expect(element.nodeType).toBe(NODE_TYPE_ELEMENT);
     expect(element.nodeName).toBe('div');
-    expect(element.attributes).toBeA(Map);
-    expect(element.attributes.size).toBe(0);
+    expect(element.attributes).toBeAn(Array);
+    expect(element.attributes.length).toBe(0);
     expect(element.childNodes).toEqual([]);
   });
 
   it('should accept null attributes and some children', () => {
     let textNode = new TextNode('Hello World');
     let element = new ElementNode('div', null, [textNode]);
-    expect(element.attributes).toBeA(Map);
-    expect(element.attributes.size).toBe(0);
+    expect(element.attributes).toBeAn(Array);
+    expect(element.attributes.length).toBe(0);
     expect(element.toString()).toBe('<div>Hello World</div>');
   });
 
   it('should accept null attributes and null children', () => {
     let element = new ElementNode('div');
-    expect(element.attributes).toBeA(Map);
-    expect(element.attributes.size).toBe(0);
+    expect(element.attributes).toBeAn(Array);
+    expect(element.attributes.length).toBe(0);
     expect(element.toString()).toBe('<div></div>');
   });
 
@@ -52,7 +52,7 @@ describe('Elements', () => {
   it('should stringify correctly', () => {
     let br = new ElementNode('br');
     let p = new ElementNode('p', null, [br, br]);
-    let attrs = [['className', 'foo']];
+    let attrs = [{name: 'className', value: 'foo'}];
     let element = new ElementNode('div', attrs, [p]);
     expect(element.childNodes.length).toBe(1);
     let firstChild = element.childNodes[0];
