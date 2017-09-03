@@ -1,7 +1,7 @@
 # Synthetic HTML DOM for use with parsing within React-RTE
 
-This package allows us to create an in-memory document object model similar to the browser's DOM but using pure JS data structures. It is useful as a target for parsers (such as `draft-js-import-markdown`).
+## PROJECT MOVED
 
-## License
+This project has moved. It is now part of a monorepo which includes several other draft-js utilities related to import/export of content.
 
-This software is [ISC Licensed](/LICENSE).
+[New Location](https://github.com/sstur/draft-js-utils/tree/master/packages/synthetic-dom)
